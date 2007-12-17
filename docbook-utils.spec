@@ -17,7 +17,6 @@ BuildRequires:	docbook-dtd31-sgml
 Obsoletes:	sgml-tools
 Provides:	sgml-tools
 
-BuildRoot:	%{_tmppath}/%name-%version-buildroot
 
 Source0:	ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/%name-%version.tar.bz2
 Source1:	db2html

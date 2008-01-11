@@ -1,6 +1,6 @@
 Name: 		docbook-utils
 Version: 	0.6.14
-Release:	%mkrel 6
+Release:	%mkrel 7
 Group:		Publishing
 Url:		ftp://sources.redhat.com/pub/docbook-tools/new-trials/
 Summary:	Shell scripts to manage DocBook documents

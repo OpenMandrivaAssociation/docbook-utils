@@ -1,11 +1,11 @@
 Name: 		docbook-utils
 Version: 	0.6.14
-Release:	%mkrel 10
+Release:	%mkrel 11
 Group:		Publishing
 Url:		ftp://sources.redhat.com/pub/docbook-tools/new-trials/
 Summary:	Shell scripts to manage DocBook documents
 
-License:	GPL
+License:	GPLv2+
 
 Requires:	docbook-style-dsssl >= 1.72
 Requires:	jadetex >= 2.5
@@ -21,6 +21,7 @@ BuildRoot:	%{_tmppath}/%name-%version-buildroot
 
 Source0:	ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/%name-%version.tar.bz2
 Source1:	db2html
+Source2:	docbook2man-spec.pl
 
 BuildArch:	noarch
 
@@ -68,6 +69,7 @@ done
 # db2html is not just a symlink, as it has to create the output directory
 rm -f $RPM_BUILD_ROOT%{_bindir}/db2html
 install -c -m 775 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/db2html
+install -p -m 755 %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/sgml/docbook/utils-%{version}/helpers/docbook2man-spec.pl
 
 # clean install html files
 rm -rf $RPM_BUILD_ROOT/%_prefix/doc

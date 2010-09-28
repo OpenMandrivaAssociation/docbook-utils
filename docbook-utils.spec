@@ -1,6 +1,6 @@
 Name: 		docbook-utils
 Version: 	0.6.14
-Release:	%mkrel 11
+Release:	%mkrel 12
 Group:		Publishing
 Url:		ftp://sources.redhat.com/pub/docbook-tools/new-trials/
 Summary:	Shell scripts to manage DocBook documents
@@ -22,7 +22,9 @@ BuildRoot:	%{_tmppath}/%name-%version-buildroot
 Source0:	ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/%name-%version.tar.bz2
 Source1:	db2html
 Source2:	docbook2man-spec.pl
-
+#gw prevent error with new grep:
+#https://qa.mandriva.com/show_bug.cgi?id=61127
+Patch0:		docbook-utils-0.6.14-grep2.7.patch
 BuildArch:	noarch
 
 %Description
@@ -47,6 +49,7 @@ PDF format.
 
 %prep
 %setup -q
+%apply_patches
 
 %build
 

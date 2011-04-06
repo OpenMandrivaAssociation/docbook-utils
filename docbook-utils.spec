@@ -1,6 +1,6 @@
 Name: 		docbook-utils
 Version: 	0.6.14
-Release:	%mkrel 12
+Release:	%mkrel 13
 Group:		Publishing
 Url:		ftp://sources.redhat.com/pub/docbook-tools/new-trials/
 Summary:	Shell scripts to manage DocBook documents
@@ -8,10 +8,8 @@ Summary:	Shell scripts to manage DocBook documents
 License:	GPLv2+
 
 Requires:	docbook-style-dsssl >= 1.72
-Requires:	jadetex >= 2.5
-Requires:	tetex-latex
 Requires:	perl-SGMLSpm >= 1.03ii
-Requires: 	which
+Requires: 	which grep gawk
 BuildRequires:	docbook-style-dsssl >= 1.72
 BuildRequires:	docbook-dtd31-sgml
 Obsoletes:	sgml-tools
@@ -22,9 +20,15 @@ BuildRoot:	%{_tmppath}/%name-%version-buildroot
 Source0:	ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/%name-%version.tar.bz2
 Source1:	db2html
 Source2:	docbook2man-spec.pl
-#gw prevent error with new grep:
-#https://qa.mandriva.com/show_bug.cgi?id=61127
-Patch0:		docbook-utils-0.6.14-grep2.7.patch
+Patch0: docbook-utils-spaces.patch
+Patch1: docbook-utils-2ndspaces.patch
+Patch2: docbook-utils-w3mtxtconvert.patch
+Patch3: docbook-utils-grepnocolors.patch
+Patch4: docbook-utils-sgmlinclude.patch
+Patch5: docbook-utils-rtfmanpage.patch
+Patch6: docbook-utils-papersize.patch
+Patch7: docbook-utils-nofinalecho.patch
+Patch8: docbook-utils-newgrep.patch
 BuildArch:	noarch
 
 %Description
@@ -40,7 +44,7 @@ Obsoletes: stylesheets-db2pdf
 Provides: stylesheets-db2pdf
 Summary: A script for converting DocBook documents to PDF format
 URL: ftp://sources.redhat.com/pub/docbook-tools/new-trials/
-Conflicts: %{name} < 0.6.14-3mdk
+Conflicts: %{name} < 0.6.14-13
 
 %description pdf
 This package contains a script for converting DocBook documents to
@@ -66,8 +70,9 @@ for sec in 1 7; do cp -af doc/man/*.$sec $RPM_BUILD_ROOT/%_mandir/man$sec; done
 for util in dvi html pdf ps rtf man
 do
         ln -s docbook2$util $RPM_BUILD_ROOT%{_bindir}/db2$util
-        ln -s jw.1.gz $RPM_BUILD_ROOT/%{_mandir}/man1/db2$util.1
+        ln -s jw.1 $RPM_BUILD_ROOT/%{_mandir}/man1/db2$util.1
 done
+ln -s jw.1 $RPM_BUILD_ROOT/%{_mandir}/man1/docbook2txt.1
 
 # db2html is not just a symlink, as it has to create the output directory
 rm -f $RPM_BUILD_ROOT%{_bindir}/db2html
@@ -84,46 +89,41 @@ rm -rf $RPM_BUILD_ROOT
 %defattr (-,root,root)
 %doc README COPYING TODO doc/HTML/*.html
 %{_bindir}/jw
-%{_bindir}/docbook2dvi
 %{_bindir}/docbook2html
 %{_bindir}/docbook2man
-%{_bindir}/docbook2ps
 %{_bindir}/docbook2rtf
 %{_bindir}/docbook2tex
 %{_bindir}/docbook2texi
 %{_bindir}/docbook2txt
-%{_bindir}/db2dvi
 %attr(0755,root,root) %{_bindir}/db2html
-%{_bindir}/db2ps
 %{_bindir}/db2rtf
 %{_bindir}/db2man
 %{_bindir}/sgmldiff
-%dir %{_datadir}/sgml/docbook/utils-%{version}
-%dir %{_datadir}/sgml/docbook/utils-%{version}/backends
-%{_datadir}/sgml/docbook/utils-%{version}/backends/dvi
-%{_datadir}/sgml/docbook/utils-%{version}/backends/html
-%{_datadir}/sgml/docbook/utils-%{version}/backends/man
-%{_datadir}/sgml/docbook/utils-%{version}/backends/pdf
-%{_datadir}/sgml/docbook/utils-%{version}/backends/ps
-%{_datadir}/sgml/docbook/utils-%{version}/backends/rtf
-%{_datadir}/sgml/docbook/utils-%{version}/backends/tex
-%{_datadir}/sgml/docbook/utils-%{version}/backends/texi
-%{_datadir}/sgml/docbook/utils-%{version}/backends/txt
-%{_datadir}/sgml/docbook/utils-%{version}/docbook-utils.dsl
-%dir %{_datadir}/sgml/docbook/utils-%{version}/frontends
-%{_datadir}/sgml/docbook/utils-%{version}/frontends/docbook
-%dir %{_datadir}/sgml/docbook/utils-%{version}/helpers
-%{_datadir}/sgml/docbook/utils-%{version}/helpers/docbook2man-spec.pl
-%{_datadir}/sgml/docbook/utils-%{version}/helpers/docbook2texi-spec.pl
-%exclude %{_mandir}/man1/docbook2pdf.*
-%{_mandir}/man1/*
-%{_mandir}/man7/*
-
+%{_datadir}/sgml/docbook/utils-%{version}
+%{_mandir}/*/db2dvi.*
+%{_mandir}/*/db2html.*
+%{_mandir}/*/db2man.*
+%{_mandir}/*/db2ps.*
+%{_mandir}/*/db2rtf.*
+%{_mandir}/*/docbook2html.*
+%{_mandir}/*/docbook2rtf.*
+%{_mandir}/*/docbook2man.*
+%{_mandir}/*/docbook2tex.*
+%{_mandir}/*/docbook2texi.*
+%{_mandir}/*/docbook2txt.*
+%{_mandir}/*/jw.*
+%{_mandir}/*/sgmldiff.*
+%{_mandir}/*/*-spec.*
 
 %files pdf
 %defattr (-,root,root)
 %{_bindir}/docbook2pdf
+%{_bindir}/docbook2dvi
+%{_bindir}/docbook2ps
+%{_bindir}/db2dvi
 %{_bindir}/db2pdf
-%{_mandir}/man1/docbook2pdf*
-
-
+%{_bindir}/db2ps
+%{_mandir}/*/db2pdf.*
+%{_mandir}/*/docbook2pdf.*
+%{_mandir}/*/docbook2dvi.*
+%{_mandir}/*/docbook2ps.*

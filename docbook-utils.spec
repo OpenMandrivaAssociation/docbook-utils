@@ -61,29 +61,29 @@ PDF format.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%_mandir/man{1,7}
-for sec in 1 7; do cp -af doc/man/*.$sec $RPM_BUILD_ROOT/%_mandir/man$sec; done
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/%_mandir/man{1,7}
+for sec in 1 7; do cp -af doc/man/*.$sec %{buildroot}/%_mandir/man$sec; done
 
 %makeinstall_std
 
 for util in dvi html pdf ps rtf man
 do
-        ln -s docbook2$util $RPM_BUILD_ROOT%{_bindir}/db2$util
-        ln -s jw.1 $RPM_BUILD_ROOT/%{_mandir}/man1/db2$util.1
+        ln -s docbook2$util %{buildroot}%{_bindir}/db2$util
+        ln -s jw.1 %{buildroot}/%{_mandir}/man1/db2$util.1
 done
-ln -s jw.1 $RPM_BUILD_ROOT/%{_mandir}/man1/docbook2txt.1
+ln -s jw.1 %{buildroot}/%{_mandir}/man1/docbook2txt.1
 
 # db2html is not just a symlink, as it has to create the output directory
-rm -f $RPM_BUILD_ROOT%{_bindir}/db2html
-install -c -m 775 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/db2html
-install -p -m 755 %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/sgml/docbook/utils-%{version}/helpers/docbook2man-spec.pl
+rm -f %{buildroot}%{_bindir}/db2html
+install -c -m 775 %{SOURCE1} %{buildroot}%{_bindir}/db2html
+install -p -m 755 %{SOURCE2} %{buildroot}%{_datadir}/sgml/docbook/utils-%{version}/helpers/docbook2man-spec.pl
 
 # clean install html files
-rm -rf $RPM_BUILD_ROOT/%_prefix/doc
+rm -rf %{buildroot}/%_prefix/doc
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr (-,root,root)

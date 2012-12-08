@@ -1,6 +1,6 @@
 Name: 		docbook-utils
 Version: 	0.6.14
-Release:	%mkrel 13
+Release:	%mkrel 15
 Group:		Publishing
 Url:		ftp://sources.redhat.com/pub/docbook-tools/new-trials/
 Summary:	Shell scripts to manage DocBook documents
@@ -61,29 +61,29 @@ PDF format.
 %make
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/%_mandir/man{1,7}
-for sec in 1 7; do cp -af doc/man/*.$sec %{buildroot}/%_mandir/man$sec; done
+rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/%_mandir/man{1,7}
+for sec in 1 7; do cp -af doc/man/*.$sec $RPM_BUILD_ROOT/%_mandir/man$sec; done
 
 %makeinstall_std
 
 for util in dvi html pdf ps rtf man
 do
-        ln -s docbook2$util %{buildroot}%{_bindir}/db2$util
-        ln -s jw.1 %{buildroot}/%{_mandir}/man1/db2$util.1
+        ln -s docbook2$util $RPM_BUILD_ROOT%{_bindir}/db2$util
+        ln -s jw.1 $RPM_BUILD_ROOT/%{_mandir}/man1/db2$util.1
 done
-ln -s jw.1 %{buildroot}/%{_mandir}/man1/docbook2txt.1
+ln -s jw.1 $RPM_BUILD_ROOT/%{_mandir}/man1/docbook2txt.1
 
 # db2html is not just a symlink, as it has to create the output directory
-rm -f %{buildroot}%{_bindir}/db2html
-install -c -m 775 %{SOURCE1} %{buildroot}%{_bindir}/db2html
-install -p -m 755 %{SOURCE2} %{buildroot}%{_datadir}/sgml/docbook/utils-%{version}/helpers/docbook2man-spec.pl
+rm -f $RPM_BUILD_ROOT%{_bindir}/db2html
+install -c -m 775 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/db2html
+install -p -m 755 %{SOURCE2} $RPM_BUILD_ROOT%{_datadir}/sgml/docbook/utils-%{version}/helpers/docbook2man-spec.pl
 
 # clean install html files
-rm -rf %{buildroot}/%_prefix/doc
+rm -rf $RPM_BUILD_ROOT/%_prefix/doc
 
 %clean
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr (-,root,root)
@@ -127,3 +127,59 @@ rm -rf %{buildroot}
 %{_mandir}/*/docbook2pdf.*
 %{_mandir}/*/docbook2dvi.*
 %{_mandir}/*/docbook2ps.*
+
+
+%changelog
+* Wed Apr 06 2011 Funda Wang <fwang@mandriva.org> 0.6.14-13mdv2011.0
++ Revision: 650855
+- sync with fedora rpm, so that docbook-utils won't pull out all the tex pacakges
+
+* Tue Sep 28 2010 Götz Waschk <waschk@mandriva.org> 0.6.14-12mdv2011.0
++ Revision: 581614
+- fix for new grep (bug #61127)
+
+* Wed Jan 13 2010 Jérôme Brenier <incubusss@mandriva.org> 0.6.14-11mdv2010.1
++ Revision: 491012
+- replace the docbook2man-spec.pl file by a corrected one from Fedora
+- fix license tag
+
+* Sun Aug 09 2009 Oden Eriksson <oeriksson@mandriva.com> 0.6.14-10mdv2010.0
++ Revision: 413373
+- rebuild
+
+* Sat Mar 07 2009 Antoine Ginies <aginies@mandriva.com> 0.6.14-9mdv2009.1
++ Revision: 350833
+- rebuild
+
+* Mon Jun 16 2008 Thierry Vignaud <tv@mandriva.org> 0.6.14-8mdv2009.0
++ Revision: 220679
+- rebuild
+
+* Sat Jan 12 2008 Thierry Vignaud <tv@mandriva.org> 0.6.14-7mdv2008.1
++ Revision: 149207
+- rebuild
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Sun Sep 09 2007 Oden Eriksson <oeriksson@mandriva.com> 0.6.14-6mdv2008.0
++ Revision: 83600
+- rebuild
+
+
+* Wed Feb 28 2007 Emmanuel Andry <eandry@mandriva.org> 0.6.14-5mdv2007.0
++ Revision: 130195
+- create db2man symlink
+- %%mkrel
+- Import docbook-utils
+
+* Tue May 23 2006 Camille Begnis <camille@mandriva.com> 0.6.14-4mdk
+- rebuild
+
+* Fri Apr 29 2005 Frederic Crozat <fcrozat@mandriva.com> 0.6.14-3mdk 
+- Move docbook2pdf manpage to subpackage
+
+* Fri Apr 22 2005 Camille Begnis <camille@mandriva.com> 0.6.14-2mdk
+- rebuild
+

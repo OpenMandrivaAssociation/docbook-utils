@@ -1,4 +1,2 @@
 sources:
-  "db2html:"	af20ac16f3504e0b122690e6ccb477f2fc41d3f2
-  "docbook2man-spec.pl:"	e91775938eb83db9091dee1b53703589f9548287
-  "docbook-utils-0.6.14.tar.bz2:"	dd0097ca8aad6313aa929e983d8bf10563359d74
+  "docbook-utils-0.6.14.tar.bz2": dd0097ca8aad6313aa929e983d8bf10563359d74

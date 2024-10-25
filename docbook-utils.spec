@@ -1,11 +1,11 @@
 Summary:	Shell scripts to manage DocBook documents
 Name: 		docbook-utils
 Version: 	0.6.14
-Release:	26
+Release:	27
 Group:		Publishing
 License:	GPLv2+
-Url:		ftp://sources.redhat.com/pub/docbook-tools/new-trials/
-Source0:	ftp://sources.redhat.com/pub/docbook-tools/new-trials/SOURCES/%name-%version.tar.bz2
+Url:		https://sourceware.org/docbook-tools/
+Source0:	https://sourceware.org/pub/docbook-tools/new-trials/SOURCES/%name-%version.tar.gz
 Source1:	db2html
 Source2:	docbook2man-spec.pl
 Patch0:		docbook-utils-spaces.patch
@@ -22,7 +22,7 @@ BuildArch:	noarch
 BuildRequires:	docbook-style-dsssl >= 1.72
 BuildRequires:	docbook-dtd31-sgml
 Requires:	docbook-style-dsssl >= 1.72
-Requires:	perl-SGMLSpm >= 1.03ii
+Requires:	perl(SGMLS)
 Requires:	gawk
 Requires:	grep
 Provides:	sgml-tools
@@ -40,7 +40,7 @@ Requires:	docbook-utils = %{version}
 Group:		Publishing
 Provides:	stylesheets-db2pdf
 Summary:	A script for converting DocBook documents to PDF format
-URL: ftp://sources.redhat.com/pub/docbook-tools/new-trials/
+URL:		https://sourceware.org/docbook-tools/
 Conflicts: %{name} < 0.6.14-13
 
 %description pdf
@@ -48,19 +48,17 @@ This package contains a script for converting DocBook documents to
 PDF format.
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -p1
 
 %build
-
 %configure
-%make
+%make_build
 
 %install
 mkdir -p %{buildroot}/%_mandir/man{1,7}
 for sec in 1 7; do cp -af doc/man/*.$sec %{buildroot}/%_mandir/man$sec; done
 
-%makeinstall_std
+%make_install
 
 for util in dvi html pdf ps rtf man
 do
@@ -117,4 +115,3 @@ rm -rf %{buildroot}/%_prefix/doc
 %{_mandir}/*/docbook2pdf.*
 %{_mandir}/*/docbook2dvi.*
 %{_mandir}/*/docbook2ps.*
-

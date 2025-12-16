@@ -23,7 +23,8 @@ BuildRequires:	docbook-style-dsssl >= 1.72
 BuildRequires:	docbook-dtd31-sgml
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 Requires:	docbook-style-dsssl >= 1.72
 Requires:	perl(SGMLS)
 Requires:	gawk

@@ -1,7 +1,7 @@
 Summary:	Shell scripts to manage DocBook documents
 Name: 		docbook-utils
 Version: 	0.6.14
-Release:	27
+Release:	28
 Group:		Publishing
 License:	GPLv2+
 Url:		https://sourceware.org/docbook-tools/
@@ -21,6 +21,9 @@ BuildArch:	noarch
 
 BuildRequires:	docbook-style-dsssl >= 1.72
 BuildRequires:	docbook-dtd31-sgml
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
 Requires:	docbook-style-dsssl >= 1.72
 Requires:	perl(SGMLS)
 Requires:	gawk

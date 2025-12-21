@@ -19,6 +19,7 @@ Patch7:		docbook-utils-nofinalecho.patch
 Patch8:		docbook-utils-newgrep.patch
 BuildArch:	noarch
 
+BuildRequires:	libtool-base
 BuildRequires:	docbook-style-dsssl >= 1.72
 BuildRequires:	docbook-dtd31-sgml
 BuildRequires:	autoconf

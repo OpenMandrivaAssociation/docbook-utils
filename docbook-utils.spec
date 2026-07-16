@@ -1,7 +1,7 @@
 Summary:	Shell scripts to manage DocBook documents
 Name: 		docbook-utils
 Version: 	0.6.14
-Release:	28
+Release:	29
 Group:		Publishing
 License:	GPLv2+
 Url:		https://sourceware.org/docbook-tools/

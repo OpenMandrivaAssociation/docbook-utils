@@ -39,7 +39,7 @@ files to other formats (for example, HTML, RTF, and PostScript), and
 for comparing SGML files.
 
 %package pdf
-Requires:	tetex-dvips
+Requires:	texlive-dvips
 Requires:	texlive-jadetex
 Requires:	docbook-utils = %{version}
 Group:		Publishing

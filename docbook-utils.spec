@@ -40,7 +40,7 @@ for comparing SGML files.
 
 %package pdf
 Requires:	tetex-dvips
-Requires:	jadetex >= 2.5
+Requires:	texlive-jadetex
 Requires:	docbook-utils = %{version}
 Group:		Publishing
 Provides:	stylesheets-db2pdf
